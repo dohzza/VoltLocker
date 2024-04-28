@@ -32,6 +32,9 @@
             });
         }
     </script>
+}
+
+captureButton.addEventListener('click', capturePhoto);
 </head>
 
 <body>
@@ -62,6 +65,17 @@
         } else {
             console.log("getUserMedia not supported!");
         }
+
+        function capturePhoto() {
+            canvasElement.width = videoElement.videoWidth;
+            canvasElement.height = videoElement.videoHeight;
+            canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
+            const photoDataUrl = canvasElement.toDataURL('image/jpeg');
+            photoElement.src = photoDataUrl;
+            photoElement.style.display = 'block';
+        }
+        
+        captureButton.addEventListener('click', capturePhoto);
     </script>
 
     
