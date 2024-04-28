@@ -1,0 +1,70 @@
+<!-- {% load static %} -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css"> 
+
+<head>
+    <meta charset="utf-8">
+    <title>VoltLocker</title>
+    <link rel="icon" type="image/x-icon" href="graphics/favicon.ico">
+    <style>
+
+        #IDscannerLive {
+            width: 500px;
+            height: 281px;
+            background-color: #fff;
+
+            
+        }
+
+    </style>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        function runOcrScript(){
+            $.ajax({
+              url: "ocr.py",
+             context: document.body
+            }).done(function() {
+             alert('Try again...');
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="centering">
+        <a href="home.html">
+            <img src="graphics/VoltLocker_Logo.jpg">
+        </a>
+        <h2>Insert Student ID Into Scanner Below</h2>    
+        <video autoplay="true" id="IDscannerLive"> </video>
+        <h3>Press "SCAN" after inserting ID</h3>
+        <a href="confirmOCR.html">
+            <button type="button" onclick="runOcrScript()">SCAN</button>
+        </a>
+    </div>
+
+    <script>
+        let video = document.querySelector("#IDscannerLive");
+
+        if(navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+
+                .catch (function (error) {
+                    console.log("Something went wrong!");
+                })
+        } else {
+            console.log("getUserMedia not supported!");
+        }
+    </script>
+
+    
+    
+</body>
+
+</html>
