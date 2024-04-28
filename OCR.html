@@ -75,9 +75,11 @@
         canvasElement.width = videoElement.videoWidth;
         canvasElement.height = videoElement.videoHeight;
         canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
-        const photoDataUrl = canvasElement.toDataURL('image/jpeg');
-        photoElement.src = photoDataUrl;
-        photoElement.style.display = 'block';
+        var link = document.createElement('a');
+        link.download = 'download.png';
+        link.href = canvasElement.toDataURL()
+        link.click();
+        link.delete;
         }
 
         captureButton.addEventListener('click', capturePhoto);
