@@ -61,7 +61,7 @@
 
         async function startWebcam() {
             try {
-                stream = await navigator.webkitGetUserMedia({ video: true });
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 videoElement.srcObject = stream;
                 captureButton.disabled = false;
             } catch (error) {
