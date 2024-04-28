@@ -10,17 +10,7 @@
     <title>VoltLocker</title>
     <link rel="icon" type="image/x-icon" href="graphics/favicon.ico">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-    <style>
-
-        #IDscannerLive {
-            width: 500px;
-            height: 281px;
-            background-color: #fff;
-
-            
-        }
-
-    </style>
+    
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
         function runOcrScript(){
@@ -32,7 +22,7 @@
             });
         }
     </script>
-}
+
 
 </head>
 
@@ -42,40 +32,43 @@
             <img src="graphics/VoltLocker_Logo.jpg">
         </a>
         <h2>Insert Student ID Into Scanner Below</h2>    
-        <video autoplay="true" id="IDscannerLive"> </video>
+        <video id="videoElement" autoplay></video>
         <h3>Press "SCAN" after inserting ID</h3>
         <a href="confirmOCR.html">
             <button type="button" id="scanButton" onclick="runOcrScript()">SCAN</button>
         </a>
+        <canvas id="canvasElement" style="display: none;"></canvas>
+        <img id="photoElement" style="display: none;">
     </div>
 
+    
+    
     <script>
-        let video = document.querySelector("#IDscannerLive");
-
-        if(navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({video: true})
-                .then(function (stream) {
-                    video.srcObject = stream;
-                })
-
-                .catch (function (error) {
-                    console.log("Something went wrong!");
-                })
-        } else {
-            console.log("getUserMedia not supported!");
-        }
-
+        const videoElement = document.getElementById('videoElement');
+        const canvasElement = document.getElementById('canvasElement');
+        const photoElement = document.getElementById('photoElement');
         const captureButton = document.getElementById('scanButton');
         
-        function capturePhoto() {
-            canvasElement.width = videoElement.videoWidth;
-            canvasElement.height = videoElement.videoHeight;
-            canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
-            const photoDataUrl = canvasElement.toDataURL('image/jpeg');
-            photoElement.src = photoDataUrl;
-            photoElement.style.display = 'block';
-        }
+        let stream;
         
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            videoElement.srcObject = stream;
+            startButton.disabled = true;
+            captureButton.disabled = false;
+        } catch (error) {
+            console.error('Error accessing webcam:', error);
+        }
+
+        function capturePhoto() {
+        canvasElement.width = videoElement.videoWidth;
+        canvasElement.height = videoElement.videoHeight;
+        canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
+        const photoDataUrl = canvasElement.toDataURL('image/jpeg');
+        photoElement.src = photoDataUrl;
+        photoElement.style.display = 'block';
+        }
+
         captureButton.addEventListener('click', capturePhoto);
     </script>
 
