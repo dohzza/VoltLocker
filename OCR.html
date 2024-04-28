@@ -15,7 +15,7 @@
         #videoElement {
             width: 500px;
             height: 281px;
-            background-color: #fff;   
+              
         }
     </style>
     
@@ -68,18 +68,18 @@
         }
 
         startWebcam();
+        
+        #function capturePhoto() {
+            #canvasElement.width = videoElement.videoWidth;
+            #canvasElement.height = videoElement.videoHeight;
+            #canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
+            #var data = canvasElement.toDataURL();
+            #var image = new Image();
+            #image.src = data;
+            #image.save('IDscan.jpg');
+        #}
 
-        function capturePhoto() {
-            canvasElement.width = videoElement.videoWidth;
-            canvasElement.height = videoElement.videoHeight;
-            canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
-            var data = canvasElement.toDataURL();
-            var image = new Image();
-            image.src = data;
-            image.save('IDscan.jpg');
-        }
-
-        captureButton.addEventListener('click', capturePhoto);
+        #captureButton.addEventListener('click', capturePhoto);
     </script>
 
     
