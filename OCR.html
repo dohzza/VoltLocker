@@ -46,7 +46,7 @@ captureButton.addEventListener('click', capturePhoto);
         <video autoplay="true" id="IDscannerLive"> </video>
         <h3>Press "SCAN" after inserting ID</h3>
         <a href="confirmOCR.html">
-            <button type="button" onclick="runOcrScript()">SCAN</button>
+            <button type="button" id="scanButton" onclick="runOcrScript()">SCAN</button>
         </a>
     </div>
 
@@ -66,6 +66,8 @@ captureButton.addEventListener('click', capturePhoto);
             console.log("getUserMedia not supported!");
         }
 
+        const captureButton = document.getElementById('scanButton');
+        
         function capturePhoto() {
             canvasElement.width = videoElement.videoWidth;
             canvasElement.height = videoElement.videoHeight;
@@ -75,7 +77,7 @@ captureButton.addEventListener('click', capturePhoto);
             photoElement.style.display = 'block';
         }
         
-        captureButton.addEventListener('click', capturePhoto);
+        scanButton.addEventListener('click', capturePhoto);
     </script>
 
     
