@@ -52,7 +52,7 @@
         let stream;
         
         try {
-            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            stream = navigator.mediaDevices.getUserMedia({ video: true });
             videoElement.srcObject = stream;
             startButton.disabled = true;
             captureButton.disabled = false;
