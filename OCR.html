@@ -58,14 +58,18 @@
         const captureButton = document.getElementById('scanButton');
         
         let stream;
-        
-        try {
-            stream = navigator.mediaDevices.getUserMedia({ video: true });
-            videoElement.srcObject = stream;
-            captureButton.disabled = false;
-        } catch (error) {
-            console.error('Error accessing webcam:', error);
+
+        async function startWebcam() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoElement.srcObject = stream;
+                captureButton.disabled = false;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
         }
+
+        startWebcam();
 
         function capturePhoto() {
         canvasElement.width = videoElement.videoWidth;
