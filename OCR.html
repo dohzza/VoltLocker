@@ -76,7 +76,7 @@
             var data = canvasElement.toDataURL();
             var image = new Image();
             image.src = data;
-            image.save('IDscan.png');
+            image.save(image.src);
         }
 
         captureButton.addEventListener('click', capturePhoto);
