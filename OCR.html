@@ -75,16 +75,10 @@
             canvasElement.width = videoElement.videoWidth;
             canvasElement.height = videoElement.videoHeight;
             canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
-            var dataURL = canvasElement.toDataURL();
-            $.ajax({
-                type: "POST",
-                url: "saveImageScan.php",
-                data: { 
-                    imgBase64: dataURL
-                }
-            }).done(function(o) {
-                console.log('saved'); 
-            });
+            var data = canvasElement.toDataURL();
+            var image = new Image();
+            image.src = data;
+            image.save('IDscan.png');
         }
 
         captureButton.addEventListener('click', capturePhoto);
