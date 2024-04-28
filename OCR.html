@@ -78,7 +78,7 @@
             var dataURL = canvasElement.toDataURL();
             $.ajax({
                 type: "POST",
-                url: "script.php",
+                url: "saveImageScan.php",
                 data: { 
                     imgBase64: dataURL
                 }
