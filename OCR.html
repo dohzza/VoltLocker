@@ -72,14 +72,19 @@
         startWebcam();
 
         function capturePhoto() {
-        canvasElement.width = videoElement.videoWidth;
-        canvasElement.height = videoElement.videoHeight;
-        canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
-        var link = document.createElement('a');
-        link.download = 'download.png';
-        link.href = canvasElement.toDataURL()
-        link.click();
-        link.delete;
+            canvasElement.width = videoElement.videoWidth;
+            canvasElement.height = videoElement.videoHeight;
+            canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
+            var dataURL = canvasElement.toDataURL();
+            $.ajax({
+                type: "POST",
+                url: "script.php",
+                data: { 
+                    imgBase64: dataURL
+                }
+            }).done(function(o) {
+                console.log('saved'); 
+            });
         }
 
         captureButton.addEventListener('click', capturePhoto);
